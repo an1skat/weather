@@ -1,5 +1,4 @@
 import {HiOutlineSearch} from 'react-icons/hi';
-import heroMobile from "../assets/hero-mobile.jpg";
 
 export default function Hero() {
 	const today = new Date();
@@ -19,23 +18,24 @@ export default function Hero() {
 	}
 	
 	return (
-		<section className="hero" style={{backgroundImage: heroMobile}}>
+		<section className="hero">
 			<div className="container">
 				<h1 className="hero__title">Weather dashboard</h1>
 				<div className="hero__container">
 					<p className="hero__text">Create your personal list of favorite cities
 						and always be aware of the weather.</p>
-					<p className="date">
+					<p className="hero__date">
 						{month} {today.getFullYear()} <br />
 						{weekday}, {day}
 					</p>
 				</div>
-				<form>
+				<form className="hero__form">
 					<input
+						className="hero__input"
 						type="text"
 						placeholder="Search location..."
 					/>
-					<button type="submit"><HiOutlineSearch /></button>
+					<button className="hero__btn" type="submit"><HiOutlineSearch size={9} /></button>
 				</form>
 			</div>
 		</section>

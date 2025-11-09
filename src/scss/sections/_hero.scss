@@ -1,4 +1,65 @@
 .hero {
   padding: 50px 0 100px;
   color: white;
+  background-image: url("../../assets/hero-mobile.jpg");
+  background-size: cover;
+
+  &__title {
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-left: 25px;
+    border-left: 2px solid white;
+    width: 161px;
+    margin: 0 auto;
+    margin-top: 35px;
+  }
+
+  &__text,
+  &__date {
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+  &__form {
+    margin-top: 48px;
+    display: flex;
+    justify-content: center;
+    height: 15px;
+    gap: 2px;
+  }
+
+  &__input {
+    border: none;
+    outline: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: $dark-gray;
+    color: #878787;
+    font-weight: 500;
+    font-size: 6px;
+    padding: 0;
+    width: 158px;
+    padding-left: 10px;
+
+    &::placeholder {
+      color: inherit;
+    }
+  }
+  &__btn {
+    border: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px 3.6px;
+    background-color: $primary;
+  }
 }
