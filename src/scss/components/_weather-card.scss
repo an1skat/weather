@@ -1,0 +1,101 @@
+.weather-card {
+  padding: 15px 15px 20px;
+  background-color: $light-gray;
+  border-radius: 20px;
+  width: 293px;
+  margin: 0 auto;
+
+  &__location {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 500;
+    font-size: 12px;
+  }
+
+  &__time {
+    font-weight: 500;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 25px;
+  }
+
+  &__forecast {
+    margin-top: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 21px;
+
+    &-btn {
+      border: none;
+      padding: 6px 11.5px;
+      border-radius: 5px;
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 9px;
+      background-color: $primary;
+    }
+  }
+
+  &__date {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 12px;
+    font-weight: 500;
+    font-size: 12px;
+
+    :last-child {
+      border-left: 1px solid black;
+      padding-left: 12px;
+    }
+  }
+
+  &__icon {
+    margin: 0 auto;
+    margin-top: 24px;
+  }
+  &__temp {
+    font-weight: 500;
+    font-size: 24px;
+    text-align: center;
+  }
+  &__interact {
+    display: flex;
+    justify-content: center;
+    margin-top: 44px;
+    align-items: center;
+
+    &-item {
+      :first-child {
+        margin-right: 14px;
+      }
+      :nth-child(2) {
+        margin-right: 32px;
+      }
+      :nth-child(3) {
+        margin-right: 27px;
+      }
+    }
+
+    &-reload,
+    &-like,
+    &-delete {
+      border: none;
+      width: 34px;
+      height: 34px;
+    }
+
+    &-see-more {
+      padding: 8px 20px;
+      background-color: $primary;
+      border: none;
+      border-radius: 5px;
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 9px;
+    }
+  }
+}

@@ -3,8 +3,7 @@ import logo from "@/assets/logo.png"
 import profileImg from "@/assets/profile.svg";
 
 export default function Header() {
-	const [isLogin, setIsLogin] = useState(false);
-	let profile;
+	const [isLogin] = useState(false);
 	
 	return (
 		<header className="header">

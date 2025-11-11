@@ -1,0 +1,11 @@
+.swiper {
+  overflow: visible !important;
+}
+.swiper-button-prev,
+.swiper-button-next{
+  width: 25px !important;
+  color: $primary !important;
+  & svg {
+    width: 8px !important;
+  }
+}

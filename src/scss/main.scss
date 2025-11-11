@@ -1,5 +1,7 @@
 @import "./utils/variables.scss";
 @import "./base/common.scss";
 @import "./base/container.scss";
-@import "./sections/header.scss";;
+@import "./components/weather-card.scss";
+@import "./sections/header.scss";
 @import "./sections/hero.scss";
+@import "./sections/weather.scss";
