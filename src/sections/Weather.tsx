@@ -5,7 +5,9 @@ import { Navigation } from 'swiper/modules';
 import WeatherCard from '../components/WeatherCard.tsx';
 import WeatherInfo from './WeatherInfo.tsx';
 
+// @ts-ignore
 import "swiper/css";
+// @ts-ignore
 import "swiper/css/navigation";
 
 export default function Weather() {

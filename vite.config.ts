@@ -15,5 +15,6 @@ export default defineConfig({
 			{
 				usePolling: true
 			}
-	}
+	},
+	base: "/weather/"
 });
