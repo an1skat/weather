@@ -8,9 +8,10 @@ interface Props {
 	country: string;
 	weather: string;
 	temp: number;
+	onSeeMore: () => void;
 }
 
-export default function WeatherCard({city, country, weather, temp}: Props) {
+export default function WeatherCard({city, country, weather, temp, onSeeMore}: Props) {
 	const today = new Date();
 	const icon = getWeatherIcon(weather);
 	return (
@@ -63,6 +64,7 @@ export default function WeatherCard({city, country, weather, temp}: Props) {
 					<button
 						type="button"
 						className="weather-card__interact-see-more"
+						onClick={onSeeMore}
 					>See more
 					</button>
 				</li>
