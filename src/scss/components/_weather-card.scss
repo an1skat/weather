@@ -4,6 +4,7 @@
   border-radius: 20px;
   width: 263px;
   margin: 0 auto;
+  box-sizing: content-box;
 
   &__location {
     display: flex;
@@ -69,13 +70,13 @@
     align-items: center;
 
     &-item {
-      :first-child {
+      &:first-child {
         margin-right: 14px;
       }
-      :nth-child(2) {
+      &:nth-child(2) {
         margin-right: 32px;
       }
-      :nth-child(3) {
+      &:nth-child(3) {
         margin-right: 27px;
       }
     }

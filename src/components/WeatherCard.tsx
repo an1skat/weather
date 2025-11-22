@@ -20,7 +20,7 @@ export default function WeatherCard({city, country, weather, temp, onSeeMore}: P
 				<p>{city}</p>
 				<p>{country}</p>
 			</div>
-			<h3 className="weather-card__time">{today.getHours()}:{today.getMinutes()}</h3>
+			<h3 className="weather-card__time">{today.getHours()}:{String(today.getMinutes()).padStart(2, "0")}</h3>
 			<div className="weather-card__forecast">
 				<button
 					type="button"
