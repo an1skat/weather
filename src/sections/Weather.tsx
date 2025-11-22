@@ -9,8 +9,11 @@ import WeatherInfo from './WeatherInfo.tsx';
 import "swiper/css";
 // @ts-ignore
 import "swiper/css/navigation";
+import WeatherChart from './WeatherChart.tsx';
+import weather from "../weather.json"
 
 export default function Weather() {
+	const hours = weather.forecast.forecastday[0].hour;
 	const [showWeatherInfo, setShowWeatherInfo] = useState(false);
 	
 	const handleSeeMore = () => {
@@ -58,6 +61,7 @@ export default function Weather() {
 			
 			</section>
 			{showWeatherInfo && <WeatherInfo />}
+			<WeatherChart hours={hours} />
 		</>
 	)
 }
