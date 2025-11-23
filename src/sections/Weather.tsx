@@ -4,20 +4,28 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import WeatherCard from '../components/WeatherCard.tsx';
 import WeatherInfo from './WeatherInfo.tsx';
+import HourlyForecast from './HourlyForecast.tsx';
+import WeekForecast from './WeekForecast.tsx';
+
+import weather from "../weather.json";
+import week from "../week.json";
 
 // @ts-ignore
 import "swiper/css";
 // @ts-ignore
 import "swiper/css/navigation";
-import WeatherChart from './WeatherChart.tsx';
-import weather from "../weather.json"
 
 export default function Weather() {
 	const hours = weather.forecast.forecastday[0].hour;
-	const [showWeatherInfo, setShowWeatherInfo] = useState(false);
 	
-	const handleSeeMore = () => {
-		setShowWeatherInfo(true);
+	const [openSections, setOpenSections] = useState({
+		weatherInfo: false,
+		hourlyForecast: false,
+		weekForecast: false,
+	});
+	
+	const toggleSection = (section: keyof typeof openSections) => {
+		setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
 	};
 	
 	return (
@@ -36,32 +44,39 @@ export default function Weather() {
 							country="Czech Republic"
 							weather="clear sky"
 							temp={22}
-							onSeeMore={handleSeeMore}
+							onSeeMore={() => toggleSection('weatherInfo')}
+							onHourlyForecast={() => toggleSection('hourlyForecast')}
+							onWeekForecast={() => toggleSection('weekForecast')}
 						/>
 					</SwiperSlide>
 					<SwiperSlide>
 						<WeatherCard
-							city="Kiiv"
-							country="Czech Republic"
+							city="Kyiv"
+							country="Ukraine"
 							weather="fog"
 							temp={13}
-							onSeeMore={handleSeeMore}
+							onSeeMore={() => toggleSection('weatherInfo')}
+							onHourlyForecast={() => toggleSection('hourlyForecast')}
+							onWeekForecast={() => toggleSection('weekForecast')}
 						/>
 					</SwiperSlide>
 					<SwiperSlide>
 						<WeatherCard
-							city="Prague"
+							city="Chisinau"
 							country="Moldova"
 							weather="light rain"
 							temp={5}
-							onSeeMore={handleSeeMore}
+							onSeeMore={() => toggleSection('weatherInfo')}
+							onHourlyForecast={() => toggleSection('hourlyForecast')}
+							onWeekForecast={() => toggleSection('weekForecast')}
 						/>
 					</SwiperSlide>
 				</Swiper>
-			
 			</section>
-			{showWeatherInfo && <WeatherInfo />}
-			<WeatherChart hours={hours} />
+			
+			{openSections.weatherInfo && <WeatherInfo />}
+			{openSections.hourlyForecast && <HourlyForecast hours={hours} />}
+			{openSections.weekForecast && <WeekForecast data={week} />}
 		</>
 	)
 }

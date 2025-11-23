@@ -9,9 +9,11 @@ interface Props {
 	weather: string;
 	temp: number;
 	onSeeMore: () => void;
+	onHourlyForecast: () => void;
+	onWeekForecast: () => void;
 }
 
-export default function WeatherCard({city, country, weather, temp, onSeeMore}: Props) {
+export default function WeatherCard({city, country, weather, temp, onSeeMore, onHourlyForecast, onWeekForecast}: Props) {
 	const today = new Date();
 	const icon = getWeatherIcon(weather);
 	return (
@@ -25,11 +27,13 @@ export default function WeatherCard({city, country, weather, temp, onSeeMore}: P
 				<button
 					type="button"
 					className="weather-card__forecast-btn"
+					onClick={onHourlyForecast}
 				>Hourly forecast
 				</button>
 				<button
 					type="button"
 					className="weather-card__forecast-btn"
+					onClick={onWeekForecast}
 				>Weekly forecast
 				</button>
 			</div>
