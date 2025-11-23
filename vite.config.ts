@@ -14,7 +14,8 @@ export default defineConfig({
 		watch:
 			{
 				usePolling: true
-			}
+			},
+			allowedHosts: true,
 	},
 	base: "/weather/"
 });

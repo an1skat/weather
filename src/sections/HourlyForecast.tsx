@@ -34,14 +34,14 @@ export default function HourlyForecast({ hours }: Props) {
 	}));
 	
 	return (
-		<section className="hourly-forecast">
+		<section className="hourly-forecast" >
 			<div className="container">
 				<div style={{ overflowX: "auto", width: "100%", backgroundColor: '#E8E8E8', padding: "18px 25px", paddingLeft: 0, borderRadius: "15px" }}>
 					<h2 className="hourly-forecast__title">Hourly Forecast</h2>
-					<div style={{ width: chartWidth }}>
+					<div style={{ width: chartWidth, outline: 'none' }} >
 						<ResponsiveContainer width="100%" height={370}>
 							<LineChart data={data}>
-								<CartesianGrid stroke="#B5B5B5" />
+								<CartesianGrid stroke="#B5B5B5"  />
 								<XAxis
 									axisLine={false}
 									tickLine={false}
