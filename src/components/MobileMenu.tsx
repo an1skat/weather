@@ -1,9 +1,10 @@
 interface Props {
 	avatar: string,
-	isOpen: boolean
+	isOpen: boolean,
+	openModal: () => void;
 }
 
-export default function MobileMenu({avatar, isOpen}: Props) {
+export default function MobileMenu({avatar, isOpen, openModal}: Props) {
 	return (
 		<div className={isOpen ? "overlay" : ""}>
 			<div className={`mobile-menu ${isOpen ? "open" : ""}`}>
@@ -18,7 +19,7 @@ export default function MobileMenu({avatar, isOpen}: Props) {
 						alt="Avatar"
 						className="avatar"
 					/>
-					<button className="auth__btn">Sign up</button>
+					<button onClick={openModal} className="auth__btn">Sign up</button>
 				</div>
 			</div>
 		</div>
