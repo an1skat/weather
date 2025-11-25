@@ -1,3 +1,5 @@
+import {useAuth} from '@/context/AuthContext.tsx';
+
 interface Props {
 	avatar: string,
 	isOpen: boolean,
@@ -5,6 +7,7 @@ interface Props {
 }
 
 export default function MobileMenu({avatar, isOpen, openModal}: Props) {
+	const {isLogin, user, logout} = useAuth();
 	return (
 		<div className={isOpen ? "overlay" : ""}>
 			<div className={`mobile-menu ${isOpen ? "open" : ""}`}>
@@ -19,7 +22,16 @@ export default function MobileMenu({avatar, isOpen, openModal}: Props) {
 						alt="Avatar"
 						className="avatar"
 					/>
-					<button onClick={openModal} className="auth__btn">Sign up</button>
+					{!isLogin ? (
+						<button className="auth__btn" onClick={openModal}>
+							Sign up
+						</button>
+					) : (
+						<>
+							<span style={{fontSize: "12px"}}>{user?.name}</span>
+							<button className="auth__btn" onClick={logout}>Logout</button>
+						</>
+					)}
 				</div>
 			</div>
 		</div>
