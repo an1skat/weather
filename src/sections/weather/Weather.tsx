@@ -1,0 +1,151 @@
+import { useEffect, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
+import WeatherCard from '@/components/WeatherCard.tsx';
+import WeatherInfo from './WeatherInfo.tsx';
+import HourlyForecast from './HourlyForecast.tsx';
+import WeekForecast from './WeekForecast.tsx';
+import axios from 'axios';
+import { v4 } from 'uuid';
+import type { Weather } from '@/types.ts';
+
+// @ts-ignore
+import "swiper/css";
+// @ts-ignore
+import "swiper/css/navigation";
+
+export default function Weather() {
+	const [weathers, setWeathers] = useState<Weather[]>([]);
+	const [activeId, setActiveId] = useState<string | null>(null);
+	const [activeSection, setActiveSection] = useState<"info" | "hourly" | "weekly" | null>(null);
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const [_, setActiveSlideIndex] = useState(0);
+	
+	useEffect(() => {
+		const cities = ["London", "Kyiv", "Paris"];
+		
+		async function fetchData() {
+			try {
+				const responses = await Promise.all(
+					cities.map(city =>
+						axios.get(
+							`https://api.weatherapi.com/v1/forecast.json?key=6479dbdc5b544a12b0c110749252211&q=${city}&days=7&aqi=no&alerts=no`
+						)
+					)
+				);
+				
+				const weatherData: Weather[] = responses.map(res => {
+					const data = res.data;
+					const day = data.forecast.forecastday[0].day;
+					
+					return {
+						_id: v4(),
+						city: data.location.name,
+						country: data.location.country,
+						icon: day.condition.icon,
+						temp: data.current.temp_c,
+						feelslike: data.current.feelslike_c,
+						maxtemp: day.maxtemp_c,
+						mintemp: day.mintemp_c,
+						humidity: data.current.humidity,
+						pressure: data.current.pressure_mb,
+						wind: data.current.wind_kph / 3.6,
+						visibility: data.current.vis_km,
+						hourlyData: data.forecast.forecastday[0].hour,
+						weeklyData: data.forecast.forecastday
+					};
+				});
+				
+				setWeathers(weatherData);
+				setActiveId(weatherData[0]?._id ?? null);
+			} catch (error) {
+				console.error(error);
+			}
+		}
+		
+		fetchData();
+	}, []);
+	
+	const openInfo = (id: string) => {
+		setActiveId(id);
+		setActiveSection("info");
+	};
+	
+	const openHourly = (id: string) => {
+		setActiveId(id);
+		setActiveSection("hourly");
+	};
+	
+	const openWeekly = (id: string) => {
+		setActiveId(id);
+		setActiveSection("weekly");
+	};
+	
+	const removeWeather = (id: string) => {
+		setWeathers(prev => prev.filter(w => w._id !== id));
+		if (activeId === id) {
+			setActiveId(null);
+			setActiveSection(null);
+		}
+	};
+	
+	const activeWeather = weathers.find(w => w._id === activeId);
+	
+	return (
+		<>
+			<section className="weather">
+				<Swiper
+					spaceBetween={50}
+					slidesPerView={1}
+					modules={[Navigation]}
+					navigation
+					loop
+					onSlideChange={(swiper) => {
+						const index = swiper.realIndex;
+						setActiveSlideIndex(index);
+						
+						if (activeSection) {
+							setActiveId(weathers[index]._id);
+						}
+					}}
+				>
+					{weathers.map(weather => (
+						<SwiperSlide key={weather._id}>
+							<WeatherCard
+								_id={weather._id}
+								city={weather.city}
+								country={weather.country}
+								icon={weather.icon}
+								temp={weather.temp}
+								onSeeMore={() => openInfo(weather._id)}
+								onDelete={() => removeWeather(weather._id)}
+								onHourlyForecast={() => openHourly(weather._id)}
+								onWeekForecast={() => openWeekly(weather._id)}
+							/>
+						</SwiperSlide>
+					))}
+				</Swiper>
+			</section>
+			
+			{activeWeather && activeSection === "info" && (
+				<WeatherInfo
+					temp={activeWeather.feelslike}
+					mintemp={activeWeather.mintemp}
+					maxtemp={activeWeather.maxtemp}
+					humidity={activeWeather.humidity}
+					pressure={activeWeather.pressure}
+					wind={activeWeather.wind}
+					visibility={activeWeather.visibility}
+				/>
+			)}
+			
+			{activeWeather && activeSection === "hourly" && (
+				<HourlyForecast hours={activeWeather.hourlyData} />
+			)}
+			
+			{activeWeather && activeSection === "weekly" && (
+				<WeekForecast data={activeWeather.weeklyData} />
+			)}
+		</>
+	);
+}

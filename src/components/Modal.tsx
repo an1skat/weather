@@ -16,7 +16,7 @@ export default function Modal({ isOpen, onClose }: Props) {
 		const formData = Object.fromEntries(new FormData(form));
 		
 		try {
-			const res = await api.post("/auth/register", formData);
+			const res = await api.post("/auth", formData);
 			const { user, accessToken } = res.data;
 			
 			login(user, accessToken);

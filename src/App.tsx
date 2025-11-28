@@ -1,10 +1,11 @@
 import "./scss/main.scss"
 import Header from './sections/Header.tsx';
 import Hero from './sections/Hero.tsx';
-import Weather from './sections/Weather.tsx';
+import Weather from './sections/weather/Weather.tsx';
 import { AuthProvider, useAuth } from './context/AuthContext.tsx';
 import { useEffect } from "react";
 import { setupInterceptors } from "./axiosInstance";
+import {WeatherProvider} from '@/context/WeatherContext.tsx';
 
 function AppContent() {
 	const auth = useAuth();
@@ -25,7 +26,9 @@ function AppContent() {
 function App() {
 	return (
 		<AuthProvider>
-			<AppContent />
+			<WeatherProvider>
+				<AppContent />
+			</WeatherProvider>
 		</AuthProvider>
 	);
 }

@@ -3,6 +3,7 @@ import { createContext, useContext, useState, type ReactNode, useEffect } from "
 interface User {
 	name: string;
 	email: string;
+	favs: string[];
 }
 
 interface AuthContextType {
@@ -19,7 +20,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 	const [user, setUser] = useState<User | null>(null);
 	const [accessToken, setAccessToken] = useState<string | null>(null);
 	
-	// при загрузке страницы читаем токен из localStorage
 	useEffect(() => {
 		const storedUser = localStorage.getItem("user");
 		const storedToken = localStorage.getItem("accessToken");
@@ -50,6 +50,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 	);
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
 	const context = useContext(AuthContext);
 	if (!context) throw new Error("useAuth must be used within AuthProvider");

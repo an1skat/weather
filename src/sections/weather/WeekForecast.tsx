@@ -1,44 +1,26 @@
-import ForecastCard from '../components/ForecastCard.tsx';
-
-interface ForecastDay {
-	date: string
-	day: {
-		maxtemp_c: number
-		mintemp_c: number
-		condition: {
-			text: string
-			icon: string
-		}
-	}
-}
-
-interface ForecastResponse {
-	forecast: {
-		forecastday: ForecastDay[]
-	}
-}
+import ForecastCard from '../../components/ForecastCard.tsx';
+import type { ForecastDay } from '@/types.ts';
 
 interface Props {
-	data: ForecastResponse
+	data: ForecastDay[];
 }
 
-export default function WeekForecast({data}: Props) {
-	const days = data.forecast.forecastday
-	
+export default function WeekForecast({ data }: Props) {
 	const formatDate = (date: string) => {
 		return new Date(date).toLocaleDateString("en-US", {
 			weekday: "short",
 			month: "short",
 			day: "numeric"
-		})
-	}
+		});
+	};
+	
 	return (
 		<section className="week-forecast">
 			<div className="container">
 				<div className="week-forecast__info-container">
 					<h2 className="week-forecast__title">Weekly forecast</h2>
 					<ul className="week-forecast__list">
-						{days.slice(0, 7).map((d) => (
+						{data.slice(0, 7).map((d) => (
 							<ForecastCard
 								key={d.date}
 								date={formatDate(d.date)}
@@ -48,10 +30,9 @@ export default function WeekForecast({data}: Props) {
 								min={Math.round(d.day.mintemp_c)}
 							/>
 						))}
-					
 					</ul>
 				</div>
 			</div>
 		</section>
-	)
+	);
 }
