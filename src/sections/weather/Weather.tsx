@@ -118,19 +118,45 @@ export default function Weather() {
 							setActiveId(targetWeather._id);
 						}
 					}}
+					breakpoints={{
+						768: {
+							slidesPerView: 2
+						},
+						1200: {
+							slidesPerView: 3
+						}
+					}}
 				>
 					{allWeathers.map(weather => (
-						<SwiperSlide key={weather._id}>
+						<SwiperSlide
+							key={weather._id}
+							className={weather._id === activeId ? "active-slide" : ""}
+						>
 							<WeatherCard
 								_id={weather._id}
 								city={weather.city}
 								country={weather.country}
 								icon={weather.icon}
 								temp={weather.temp}
-								onSeeMore={() => openInfo(weather._id)}
-								onDelete={() => removeWeather(weather._id)}
-								onHourlyForecast={() => openHourly(weather._id)}
-								onWeekForecast={() => openWeekly(weather._id)}
+								onSeeMore={(e) => {
+									e.stopPropagation();
+									openInfo(weather._id);
+								}}
+								onDelete={(id) => removeWeather(id)}
+								onHourlyForecast={(e) => {
+									e.stopPropagation();
+									openHourly(weather._id);
+								}}
+								onWeekForecast={(e) => {
+									e.stopPropagation();
+									openWeekly(weather._id);
+								}}
+								onActivate={() => {
+									setActiveId(weather._id);
+									if (activeSection) {
+										setActiveSection(activeSection);
+									}
+								}}
 							/>
 						</SwiperSlide>
 					))}

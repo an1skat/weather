@@ -4,27 +4,90 @@
 
 .swiper {
   overflow-y: visible !important;
-}
-.swiper-button-prev,
-.swiper-button-next{
-  width: 25px !important;
-  color: $primary !important;
-  top: 200px !important;
-  & svg {
-    width: 8px !important;
+
+  &-button-prev,
+  &-button-next{
+    width: 25px !important;
+    color: $primary !important;
+    top: 200px !important;
+    @media screen and (min-width: 768px) {
+      width: 30px !important;
+    }
+    & svg {
+      width: 8px !important;
+      @media screen and (min-width: 768px) {
+        width: 13px !important;
+      }
+    }
   }
 }
 
 .weather-info {
   margin-top: 35px;
-
   &__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 21px;
+
     padding: 35px 43px;
     background-color: $light-gray;
     border-radius: 15px;
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+  &__item {
+    flex: 1 1 100%;
+    max-width: 100%;
+    min-height: 160px;
+    border-radius: 12px;
+    background: $dark-gray;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 35px;
+    justify-content: center;
+
+    overflow: hidden;
+    @media screen and (min-width: 625px) {
+        flex: 1 1 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+        min-height: 200px;
+    }
+    @media screen and (min-width: 900px) {
+        flex: 1 1 calc(33.333% - 20px);
+        max-width: calc(33.333% - 20px);
+        min-height: 217px;
+    }
+    @media screen and (min-width: 1200px) {
+        min-height: 217px;
+        flex: 1 1 calc(33.333% - 20px);
+      max-width: 290px;
+    }
+  }
+  &__text {
+    font-weight: 500;
+    font-size: 10px;
+    @media screen and (min-width: 625px) {
+      font-size: 12px;
+    }
+    @media screen and (min-width: 1200px) {
+      font-size: 16px;
+    }
+  }
+  &__value {
+    font-weight: 500;
+    font-size: 14px;
+    @media screen and (min-width: 625px) {
+      font-size: 16px;
+    }
+    @media screen and (min-width: 1200px) {
+      font-size: 32px;
+    }
+  }
+}
+.active-slide > .weather-card {
+  @media screen and (min-width: 768px) {
+    box-shadow: 0 0 6px 3px $primary inset !important;
   }
 }
