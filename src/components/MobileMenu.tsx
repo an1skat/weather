@@ -20,7 +20,7 @@ export default function MobileMenu({avatar, isOpen, openModal}: Props) {
 					<img
 						src={avatar}
 						alt="Avatar"
-						className="avatar"
+						className="auth__img"
 					/>
 					{!isLogin ? (
 						<button className="auth__btn" onClick={openModal}>

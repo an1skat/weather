@@ -21,6 +21,10 @@
   transform: translateY(-200px);
   transition: 250ms transform;
 
+  @media screen and (min-width: 480px) {
+    display: none;
+  }
+
   &.open {
     transform: translateY(0);
   }

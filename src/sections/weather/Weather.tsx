@@ -1,30 +1,37 @@
-import { useEffect, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
-import WeatherCard from '@/components/WeatherCard.tsx';
-import WeatherInfo from './WeatherInfo.tsx';
-import HourlyForecast from './HourlyForecast.tsx';
-import WeekForecast from './WeekForecast.tsx';
-import axios from 'axios';
-import { v4 } from 'uuid';
-import type { Weather } from '@/types.ts';
+import { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import axios from "axios";
+import { v4 } from "uuid";
+
+import WeatherCard from "@/components/WeatherCard";
+import WeatherInfo from "./WeatherInfo";
+import HourlyForecast from "./HourlyForecast";
+import WeekForecast from "./WeekForecast";
 
 // @ts-ignore
 import "swiper/css";
 // @ts-ignore
 import "swiper/css/navigation";
 
+import { useWeather } from "@/context/WeatherContext";
+import type { Weather } from "@/types";
+
 export default function Weather() {
-	const [weathers, setWeathers] = useState<Weather[]>([]);
+	const {
+		allWeathers,
+		loadDefaults,
+		remove
+	} = useWeather();
+	
 	const [activeId, setActiveId] = useState<string | null>(null);
 	const [activeSection, setActiveSection] = useState<"info" | "hourly" | "weekly" | null>(null);
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [_, setActiveSlideIndex] = useState(0);
-	
 	useEffect(() => {
 		const cities = ["London", "Kyiv", "Paris"];
 		
-		async function fetchData() {
+		async function fetchDefaults() {
 			try {
 				const responses = await Promise.all(
 					cities.map(city =>
@@ -56,14 +63,14 @@ export default function Weather() {
 					};
 				});
 				
-				setWeathers(weatherData);
-				setActiveId(weatherData[0]?._id ?? null);
-			} catch (error) {
-				console.error(error);
+				loadDefaults(weatherData);
+				if (weatherData.length > 0) setActiveId(weatherData[0]._id);
+			} catch (err) {
+				console.error(err);
 			}
 		}
 		
-		fetchData();
+		fetchDefaults();
 	}, []);
 	
 	const openInfo = (id: string) => {
@@ -80,16 +87,16 @@ export default function Weather() {
 		setActiveId(id);
 		setActiveSection("weekly");
 	};
-	
 	const removeWeather = (id: string) => {
-		setWeathers(prev => prev.filter(w => w._id !== id));
+		remove(id);
+		
 		if (activeId === id) {
 			setActiveId(null);
 			setActiveSection(null);
 		}
 	};
 	
-	const activeWeather = weathers.find(w => w._id === activeId);
+	const activeWeather = allWeathers.find(w => w._id === activeId);
 	
 	return (
 		<>
@@ -104,12 +111,15 @@ export default function Weather() {
 						const index = swiper.realIndex;
 						setActiveSlideIndex(index);
 						
+						const targetWeather = allWeathers[index];
+						if (!targetWeather) return;
+						
 						if (activeSection) {
-							setActiveId(weathers[index]._id);
+							setActiveId(targetWeather._id);
 						}
 					}}
 				>
-					{weathers.map(weather => (
+					{allWeathers.map(weather => (
 						<SwiperSlide key={weather._id}>
 							<WeatherCard
 								_id={weather._id}
