@@ -2,9 +2,7 @@ import {useEffect, useState} from 'react';
 import axios from 'axios';
 import noImage from '@/assets/no-image.jpg';
 
-const API_KEY = '4f782e4dfd224a48a9bdff33854d9627';
 const LIMIT = 4;
-const url = 'https://api.allorigins.win/raw?url=' + encodeURI(`https://newsapi.org/v2/everything?q=pets&language=en&apiKey=${API_KEY}`);
 
 export default function Pets() {
 	const [news, setNews] = useState([]);
@@ -13,7 +11,7 @@ export default function Pets() {
 	useEffect(() => {
 		async function fetchPets() {
 			try {
-				const {data} = await axios.get(url);
+				const {data} = await axios.get('/.netlify/functions/pets-news');
 				setNews(data.articles || []);
 			} catch (err) {
 				console.error(err);
