@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
-import noImage from "@/assets/no-image.jpg";
+import noImage from '@/assets/no-image.jpg';
 
 const API_KEY = '4f782e4dfd224a48a9bdff33854d9627';
 const LIMIT = 4;
+const url = 'https://api.allorigins.win/raw?url=' + encodeURI(`https://newsapi.org/v2/everything?q=pets&language=en&apiKey=${API_KEY}`);
 
 export default function Pets() {
 	const [news, setNews] = useState([]);
@@ -12,9 +13,7 @@ export default function Pets() {
 	useEffect(() => {
 		async function fetchPets() {
 			try {
-				const { data } = await axios.get(
-					`https://newsapi.org/v2/everything?q=pets&language=en&apiKey=${API_KEY}`
-				);
+				const {data} = await axios.get(url);
 				setNews(data.articles || []);
 			} catch (err) {
 				console.error(err);
@@ -33,7 +32,10 @@ export default function Pets() {
 				
 				<ul className="pets__list">
 					{news.slice(0, visible).map(item => (
-						<li className="pets__item" key={item.url}>
+						<li
+							className="pets__item"
+							key={item.url}
+						>
 							<img
 								className="pets__img"
 								src={item.urlToImage || noImage}
@@ -51,7 +53,10 @@ export default function Pets() {
 				</ul>
 				
 				{visible < news.length && (
-					<button className="pets__btn" onClick={loadMore}>
+					<button
+						className="pets__btn"
+						onClick={loadMore}
+					>
 						See more
 					</button>
 				)}
