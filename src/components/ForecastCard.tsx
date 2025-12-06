@@ -15,8 +15,6 @@ export default function ForecastCard({date, icon, description, max, min}: Props)
 					src={icon}
 					alt={description}
 					className="week-forecast__icon"
-					width={30}
-					height={30}
 				/>
 				<p className="week-forecast__temp">{max}/{min}℃</p>
 			</div>

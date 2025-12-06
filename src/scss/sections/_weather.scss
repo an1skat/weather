@@ -1,5 +1,12 @@
 .weather {
-  padding-top: 35px;
+  padding: 35px 0;
+  @media screen and (min-width: 768px) {
+    padding: 50px 0;
+  }
+  @media screen and (min-width: 1200px) {
+    padding-top: 60px;
+    padding-bottom: 80px;
+  }
 }
 
 .swiper {
@@ -23,7 +30,7 @@
 }
 
 .weather-info {
-  margin-top: 35px;
+  padding-bottom: 50px;
   &__list {
     display: flex;
     flex-wrap: wrap;
