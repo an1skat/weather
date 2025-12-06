@@ -6,6 +6,7 @@ import { AuthProvider, useAuth } from './context/AuthContext.tsx';
 import { useEffect } from "react";
 import { setupInterceptors } from "./axiosInstance";
 import {WeatherProvider} from '@/context/WeatherContext.tsx';
+import Pets from '@/sections/Pets.tsx';
 
 function AppContent() {
 	const auth = useAuth();
@@ -19,6 +20,7 @@ function AppContent() {
 			<Header />
 			<Hero />
 			<Weather />
+			<Pets />
 		</>
 	);
 }
