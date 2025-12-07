@@ -1,9 +1,14 @@
 .nature {
+  padding-bottom: 48px;
+  &__title {
+    font-weight: 500;
+    font-size: 20px;
+  }
   &__wrapper {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 70px 0;
+    margin-top: 40px;
   }
   &__swiper {
     width: 100%;
@@ -17,7 +22,6 @@
     display: flex !important;
     align-items: center;
     justify-content: center;
-    filter: brightness(80%);
   }
   &__img {
     width: 100%;
@@ -25,7 +29,4 @@
     object-fit: cover;
     display: block;
   }
-}
-.swiper-slide-fully-visible {
-  filter: none;
 }
