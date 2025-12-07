@@ -3,7 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://willowy-elf-f72804.netlify.app/weather/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

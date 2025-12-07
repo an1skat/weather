@@ -17,5 +17,5 @@ export default defineConfig({
 			},
 			allowedHosts: true,
 	},
-	base: "/weather/"
+	base: './'
 });
