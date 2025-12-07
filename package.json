@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://an1skat.github.io/weather/",
+  "homepage": "https://willowy-elf-f72804.netlify.app/weather/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
