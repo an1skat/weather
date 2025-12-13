@@ -1,0 +1,107 @@
+.footer {
+  background-color: $primary;
+  padding: 30px 0;
+  @media screen and (min-width: 768px) {
+    padding: 35px 0;
+  }
+  @media screen and (min-width: 1200px) {
+    padding: 40px 0 65px;
+  }
+  &__wrapper {
+    display: flex;
+    align-items: start;
+    position: relative;
+    justify-content: center;
+    @media screen and (min-width: 768px) {
+      gap: 100px;
+      justify-content: start;
+    }
+  }
+  &__logo {
+    width: 50px;
+    height: 34.48px;
+    @media screen and (min-width: 768px) {
+      width: 58px;
+      height: 40px;
+    }
+    @media screen and (min-width: 1200px) {
+      width: 90px;
+      height: 62px;
+    }
+  }
+  &__icon {
+    filter: brightness(0) invert(1);
+  }
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    @media screen and (min-width: 768px) {
+      flex-direction: row;
+      align-items: start;
+      margin: 0;
+      gap: 100px;
+    }
+    @media screen and (min-width: 1200px) {
+      gap: 103px;
+    }
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      @media screen and (min-width: 768px) {
+        align-items: flex-start;
+      }
+
+      &:first-child {
+        align-items: flex-start;
+        justify-content: center;
+      }
+    }
+  }
+  &__title {
+    color: black;
+    font-weight: 500;
+    font-size: 12px;
+    font-family: "Montserrat Alternates";
+    @media screen and (min-width: 768px) {
+      font-size: 14px;
+    }
+    @media screen and (min-width: 1200px) {
+      font-size: 16px;
+    }
+  }
+  &__link {
+    color: black;
+    font-weight: 500;
+    font-size: 8px;
+    font-family: "Montserrat Alternates";
+    display: flex;
+    width: 62px;
+    text-decoration: none;
+    @media screen and (min-width: 768px) {
+      font-size: 10px;
+      width: 77px;
+    }
+    @media screen and (min-width: 1200px) {
+      font-size: 12px;
+      width: 92px;
+    }
+
+  }
+  &__list {
+    display: flex;
+    gap: 20px;
+
+    & a {
+      width: 35px;
+      display: flex;
+      @media screen and (min-width: 1200px) {
+        width: 40px;
+      }
+    }
+  }
+}

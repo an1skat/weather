@@ -8,6 +8,7 @@ import { setupInterceptors } from "./axiosInstance";
 import {WeatherProvider} from '@/context/WeatherContext.tsx';
 import Pets from '@/sections/Pets.tsx';
 import {Slider} from '@/sections/Nature.tsx';
+import {Footer} from '@/sections/Footer.tsx';
 
 function AppContent() {
 	const auth = useAuth();
@@ -23,6 +24,7 @@ function AppContent() {
 			<Weather />
 			<Pets />
 			<Slider />
+			<Footer />
 		</>
 	);
 }
