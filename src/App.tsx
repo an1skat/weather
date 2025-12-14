@@ -9,6 +9,7 @@ import {WeatherProvider} from '@/context/WeatherContext.tsx';
 import Pets from '@/sections/Pets.tsx';
 import {Slider} from '@/sections/Nature.tsx';
 import {Footer} from '@/sections/Footer.tsx';
+import {ToastContainer} from 'react-toastify';
 
 function AppContent() {
 	const auth = useAuth();
@@ -19,6 +20,7 @@ function AppContent() {
 	
 	return (
 		<>
+			<ToastContainer />
 			<Header />
 			<Hero />
 			<Weather />

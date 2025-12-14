@@ -16,6 +16,8 @@ import "swiper/css/navigation";
 
 import { useWeather } from "@/context/WeatherContext";
 import type { Weather } from "@/types";
+import {Bounce, toast} from 'react-toastify';
+import {useAuth} from '@/context/AuthContext.tsx';
 
 export default function Weather() {
 	const {
@@ -26,6 +28,7 @@ export default function Weather() {
 	
 	const [activeId, setActiveId] = useState<string | null>(null);
 	const [activeSection, setActiveSection] = useState<"info" | "hourly" | "weekly" | null>(null);
+	const {isLogin} = useAuth();
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [_, setActiveSlideIndex] = useState(0);
 	useEffect(() => {
@@ -72,6 +75,13 @@ export default function Weather() {
 		
 		fetchDefaults();
 	}, []);
+	useEffect(() => {
+		if (!isLogin) {
+			setActiveSection(null);
+			setActiveId(null);
+		}
+	}, [isLogin]);
+	
 	
 	const openInfo = (id: string) => {
 		setActiveId(id);
@@ -86,6 +96,21 @@ export default function Weather() {
 	const openWeekly = (id: string) => {
 		setActiveId(id);
 		setActiveSection("weekly");
+	};
+	
+	const showWarning = (e?: React.MouseEvent) => {
+		e?.stopPropagation();
+		toast.warn('Please log in, if you want to see more details!', {
+			position: "top-right",
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: false,
+			pauseOnHover: false,
+			draggable: true,
+			progress: undefined,
+			theme: "dark",
+			transition: Bounce,
+		});
 	};
 	const removeWeather = (id: string) => {
 		remove(id);
@@ -139,19 +164,19 @@ export default function Weather() {
 									country={weather.country}
 									icon={weather.icon}
 									temp={weather.temp}
-									onSeeMore={(e) => {
+									onSeeMore={isLogin ? (e) => {
 										e.stopPropagation();
 										openInfo(weather._id);
-									}}
+									} : showWarning}
 									onDelete={(id) => removeWeather(id)}
-									onHourlyForecast={(e) => {
+									onHourlyForecast={isLogin ? (e) => {
 										e.stopPropagation();
 										openHourly(weather._id);
-									}}
-									onWeekForecast={(e) => {
+									} : showWarning}
+									onWeekForecast={isLogin ? (e) => {
 										e.stopPropagation();
 										openWeekly(weather._id);
-									}}
+									} : showWarning}
 									onActivate={() => {
 										setActiveId(weather._id);
 										if (activeSection) {

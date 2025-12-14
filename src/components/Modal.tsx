@@ -37,17 +37,17 @@ export default function Modal({ isOpen, onClose }: Props) {
 				
 				<form onSubmit={handleSubmit} className="modal__form">
 					<label className="modal__label">
-						Username
+						Username <br/>
 						<input name="name" type="text" className="modal__input" placeholder="Username" />
 					</label>
 					
 					<label className="modal__label">
-						E-Mail
+						E-Mail <br/>
 						<input name="email" type="email" className="modal__input" placeholder="E-Mail" />
 					</label>
 					
 					<label className="modal__label">
-						Password
+						Password <br/>
 						<input name="password" type="password" className="modal__input" placeholder="Password" />
 					</label>
 					
@@ -55,6 +55,7 @@ export default function Modal({ isOpen, onClose }: Props) {
 						Sign up
 					</button>
 				</form>
+				<p className="modal__text">Already have an account? <a href="#">Log in</a></p>
 			</div>
 		</div>
 	);

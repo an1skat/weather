@@ -3,7 +3,7 @@ import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 
 const api = axios.create({
-	baseURL: "http://localhost:8888",
+	baseURL: "https://weather-back-dldv.onrender.com",
 	withCredentials: true,
 });
 

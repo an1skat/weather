@@ -61,7 +61,7 @@ export default function WeatherCard({
 						onWeekForecast(e);
 					}}
 				>
-					Weekly forecast
+					3-day forecast
 				</button>
 			</div>
 			
