@@ -127,68 +127,72 @@ export default function Weather() {
 		<>
 			<section className="weather">
 				<div className="container">
-					<Swiper
-						spaceBetween={50}
-						slidesPerView={1}
-						modules={[Navigation]}
-						navigation
-						loop
-						onSlideChange={(swiper) => {
-							const index = swiper.realIndex;
-							setActiveSlideIndex(index);
-							
-							const targetWeather = allWeathers[index];
-							if (!targetWeather) return;
-							
-							if (activeSection) {
-								setActiveId(targetWeather._id);
-							}
-						}}
-						breakpoints={{
-							768: {
-								slidesPerView: 2
-							},
-							1200: {
-								slidesPerView: 3
-							}
-						}}
-					>
-						{allWeathers.map(weather => (
-							<SwiperSlide
-								key={weather._id}
-								className={weather._id === activeId ? "active-slide" : ""}
-							>
-								<WeatherCard
-									_id={weather._id}
-									city={weather.city}
-									country={weather.country}
-									icon={weather.icon}
-									temp={weather.temp}
-									onSeeMore={isLogin ? (e) => {
-										e.stopPropagation();
-										openInfo(weather._id);
-									} : showWarning}
-									onDelete={(id) => removeWeather(id)}
-									onHourlyForecast={isLogin ? (e) => {
-										e.stopPropagation();
-										openHourly(weather._id);
-									} : showWarning}
-									onWeekForecast={isLogin ? (e) => {
-										e.stopPropagation();
-										openWeekly(weather._id);
-									} : showWarning}
-									onActivate={() => {
-										setActiveId(weather._id);
-										if (activeSection) {
-											setActiveSection(activeSection);
-										}
-									}}
-								/>
-							</SwiperSlide>
-						))}
-					</Swiper>
+					{allWeathers.length === 0 ? (
+						<div className="weather-empty">
+							<h2 className="nature__title">No weather cards</h2>
+							<p>Add a city to see the forecast 🌤️</p>
+						</div>
+					) : (
+						<Swiper
+							spaceBetween={50}
+							slidesPerView={1}
+							modules={[Navigation]}
+							navigation
+							loop
+							onSlideChange={(swiper) => {
+								const index = swiper.realIndex;
+								setActiveSlideIndex(index);
+								
+								const targetWeather = allWeathers[index];
+								if (!targetWeather) return;
+								
+								if (activeSection) {
+									setActiveId(targetWeather._id);
+								}
+							}}
+							breakpoints={{
+								768: { slidesPerView: 2 },
+								1200: { slidesPerView: 3 }
+							}}
+						>
+							{allWeathers.map(weather => (
+								<SwiperSlide
+									key={weather._id}
+									className={weather._id === activeId ? "active-slide" : ""}
+								>
+									<WeatherCard
+										_id={weather._id}
+										city={weather.city}
+										country={weather.country}
+										icon={weather.icon}
+										temp={weather.temp}
+										onSeeMore={isLogin ? (e) => {
+											e.stopPropagation();
+											openInfo(weather._id);
+										} : showWarning}
+										onDelete={(id) => removeWeather(id)}
+										onHourlyForecast={isLogin ? (e) => {
+											e.stopPropagation();
+											openHourly(weather._id);
+										} : showWarning}
+										onWeekForecast={isLogin ? (e) => {
+											e.stopPropagation();
+											openWeekly(weather._id);
+										} : showWarning}
+										onActivate={() => {
+											setActiveId(weather._id);
+											if (activeSection) {
+												setActiveSection(activeSection);
+											}
+										}}
+									/>
+								</SwiperSlide>
+							))}
+						</Swiper>
+					)}
 				</div>
 			</section>
+			
 			
 			{activeWeather && activeSection === "info" && (
 				<WeatherInfo
